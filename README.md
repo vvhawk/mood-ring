@@ -16,28 +16,43 @@ The following **required** functionality is completed:
   - Chosen metric(s): Mood (Sad -> Happy) `[TODO: FILL ME IN TO GET CREDIT]`
 - [x] **There is a "create entry" UI that prompts users to make their daily entry**
 - [ ] **New entries are saved in a database and then updated in the RecyclerView**
+
 Note: While the recycler view is intact, I had issues connecting the database
+
 - [ ] **On application restart, previously entered entries are preserved (i.e., are *persistent*)**
  
 The following **optional** features are implemented:
 
 - [ ] **Create a UI for tracking averages and trends in metrics**
 - [X] **Improve and customize the user interface through styling and coloring**
-- [ ] **Implement orientation responsivity**
-- [X] **Add a daily photo feature**
+- [X] **Implement orientation responsivity**  
+<img src="./extras/orientation.gif" width="400" height="200"/>  
+Note: Partial implementation. Has issues using fragments.  
+
+- [X] **Add a daily photo feature** 
+Note: The emojis are actucally png images. Hence, the user chooses a daily "photo"
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Dynamic UI
+- [X] Error Checks
+- [X] Calender/Datepicker
+- [X] Seek Bar
+- [X] Haptic Feeedback
+
+
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="./extras/demo.gif" width="200" height="400"/>
 
-<!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
+This showcases dynamic UI and error checks as well as a semi-functional demo of the recycler view. Placeholder values are used to showcase how a user might log their daily modd.  
+Note: Database implementation incomplete 
+
+
+GIF created with ...  [EZGif]()
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
