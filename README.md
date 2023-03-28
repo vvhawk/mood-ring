@@ -13,7 +13,7 @@ Time spent: **8** hours spent in total. Most time spent trying to get the databa
 The following **required** functionality is completed:
 
 - [X] **At least one health metric is tracked (based on user input)**
-  - Chosen metric(s): Mood (Sad -> Happy) `[TODO: FILL ME IN TO GET CREDIT]`
+  - Chosen metric(s): Mood (Sad -> Happy)
 - [x] **There is a "create entry" UI that prompts users to make their daily entry**
 - [ ] **New entries are saved in a database and then updated in the RecyclerView**
 
