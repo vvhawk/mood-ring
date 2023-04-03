@@ -1,8 +1,12 @@
-# Android Project 5 - *Mood Ring*
+# Android Project 6 - *emojo*
 
 Submitted by: **Vasanth Banumurthy**
 
-**Mood Ring** is a health metrics and mental wellness app that allows you to track your mood using emojis!
+**emojo** is a magical health metrics and mental wellness app that allows you to track your mood using emojis!
+
+
+<img src="./extras/definition.png" width="400" height="200"/> 
+
 
 Notes: Currently, the app is geared toward tracking happiness. Once the core functionality is ironed out, I plan on adding more mood paradigms. 
 
@@ -15,6 +19,9 @@ SICK🤮 <-> HEALTHY😇
 TIRED😴 <-> LIVELY🥳   
 
 Time spent: **4** hours spent in total.
+
+
+<img src="./extras/intro.gif" width="200" height="400"/> 
 
 
 The following **required** functionality is completed:
@@ -45,7 +52,6 @@ The following **required** functionality is completed:
 - [ ] **Create a UI for tracking averages and trends in metrics**
 - [X] **Improve and customize the user interface through styling and coloring**
 - [X] **Implement orientation responsivity**  
-<img src="./extras/orientation.gif" width="400" height="200"/>  
 Note: Partial implementation. Has issues using fragments.  
 - [X] **Add a daily photo feature** 
 Note: The emojis are actucally png images. Hence, the user chooses a daily "photo"
@@ -64,10 +70,14 @@ Other:
 
 Here's a walkthrough
 
-<img src="./extras/demo.gif" width="200" height="400"/>
+<img src="./extras/add.gif" width="200" height="400"/>
 
-This showcases dynamic UI and error checks as well as a semi-functional demo of the recycler view. Placeholder values are used to showcase how a user might log their daily modd.  
-Note: Database implementation incomplete 
+This showcases dynamic UI and error checks as well as a demo of the recycler view.
+
+
+Now lets delete the entries!  
+
+<img src="./extras/delete.gif" width="200" height="400"/>
 
 
 GIF created with ...  [EZGif](https://ezgif.com/video-to-gif)
