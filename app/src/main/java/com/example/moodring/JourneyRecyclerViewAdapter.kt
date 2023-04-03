@@ -1,5 +1,6 @@
 package com.example.moodring
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 //}
 
 class JourneyRecyclerViewAdapter(
-    private val entries: List<JourneyTest>,
+    private val entries: MutableList<JourneyEntry>,
     private val mListener: OnListFragmentInteractionListener?
     )
     : RecyclerView.Adapter<JourneyRecyclerViewAdapter.EntryViewHolder>()
@@ -29,7 +30,7 @@ class JourneyRecyclerViewAdapter(
 
 
     inner class EntryViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        var mItem: JourneyTest? = null
+        var mItem: JourneyEntry? = null
         val mEntryDate: TextView = mView.findViewById<View>(R.id.date) as TextView
         val mEntryEmoji: ImageView = mView.findViewById<View>(R.id.emoji) as ImageView
 
@@ -76,6 +77,28 @@ class JourneyRecyclerViewAdapter(
 
     override fun getItemCount(): Int {
         return entries.size
+    }
+
+    fun deleteEntry(i: Int)
+    {
+
+        Log.e("TEST", entries.size.toString())
+        entries.removeAt(i)
+        notifyItemRemoved(i)
+        Log.e("TEST", entries.size.toString())
+
+//        if (i in 0 until entries.size) {
+//            entries.removeAt(i)
+//            notifyItemRemoved(i)
+//        }
+
+    }
+
+    fun getItem(position: Int): JourneyEntry {
+
+        //Log.e("TEST", entries.size.toString())
+        return entries[position]
+
     }
 }
 

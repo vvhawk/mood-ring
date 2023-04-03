@@ -10,6 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,55 +73,13 @@ class Hand : Fragment(), DatePickerDialog.OnDateSetListener {
 
 
 
+
         seeker.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener
         {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean)
             {
 
-                if(progress == 12)
-                {
-                    emoji.setImageResource(R.drawable.sad3)
-                    seeker.performHapticFeedback(4)
-                    select = 1
-
-
-                }
-                else if(progress == 24)
-                {
-                    emoji.setImageResource(R.drawable.sad2)
-                    seeker.performHapticFeedback(4)
-                    select = 2
-                }
-                else if(progress == 36)
-                {
-                    emoji.setImageResource(R.drawable.sad)
-                    seeker.performHapticFeedback(4)
-                    select = 3
-                }
-                else if (progress == 50)
-                {
-                    emoji.setImageResource(R.drawable.mid)
-                    seeker.performHapticFeedback(4)
-                    select = 4
-                }
-                else if(progress == 62)
-                {
-                    emoji.setImageResource(R.drawable.smile)
-                    seeker.performHapticFeedback(4)
-                    select = 5
-                }
-                else if(progress == 76)
-                {
-                    emoji.setImageResource(R.drawable.smile2)
-                    seeker.performHapticFeedback(4)
-                    select = 6
-                }
-                else if(progress == 88)
-                {
-                    emoji.setImageResource(R.drawable.smile3)
-                    seeker.performHapticFeedback(4)
-                    select = 7
-                }
+                sad_happy(progress, seeker, emoji)
 
             }
 
@@ -136,8 +99,11 @@ class Hand : Fragment(), DatePickerDialog.OnDateSetListener {
 
         setMood.setOnClickListener{
 
-
-            if (date.text.toString().lowercase() == "Enter Date".lowercase())
+            if(date.text.toString().lowercase() == "Setting Mood".lowercase())
+            {
+                return@setOnClickListener
+            }
+            else if (date.text.toString().lowercase() == "Enter Date".lowercase())
             {
                 //Log.d("dateTest", date.text.toString())
                 //Toast.makeText(context, "Choose A Date", Toast.LENGTH_SHORT).show()
@@ -152,17 +118,27 @@ class Hand : Fragment(), DatePickerDialog.OnDateSetListener {
                 }
 
 
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
+//                Handler(Looper.getMainLooper()).postDelayed(
+//                    {
+//                        date.text = "Enter Date"
+//                        date.setTextColor(resources.getColor(R.color.lilac))
+//
+//
+//                        seeker.progress = 50
+//
+//                    },
+//                    1000 // value in milliseconds
+//                )
+
+                lifecycleScope.launch(Dispatchers.Default) {
+                    delay(700)
+                    withContext(Dispatchers.Main) {
                         date.text = "Enter Date"
                         date.setTextColor(resources.getColor(R.color.lilac))
 
-
                         seeker.progress = 50
-
-                    },
-                    1000 // value in milliseconds
-                )
+                    }
+                }
 
 
                 return@setOnClickListener
@@ -173,30 +149,57 @@ class Hand : Fragment(), DatePickerDialog.OnDateSetListener {
                 //val entry = JourneyEntry(select,date.text.toString())
                 //tracker.add(entry)
 
+//                Handler(Looper.getMainLooper()).postDelayed(
+//                    {
+//                        date.text = "Enter Date"
+//                        date.setTextColor(resources.getColor(R.color.lilac))
+//
+//                        seeker.progress = 50
+//
+//                    },
+//                    1000 // value in milliseconds
+//                )
+
+
+                lifecycleScope.launch(Dispatchers.IO){
+                    (activity?.applicationContext as MoodRingApplication).db.journeyDao().insertEntry(JourneyEntry(select,date.text.toString()))
+                }
 
                 emoji.setImageResource(R.drawable.wink)
                 //Toast.makeText(context, "Mood Set", Toast.LENGTH_SHORT).show()
 
-                date.setTextColor(resources.getColor(R.color.comet))
-                date.text = "Setting Mood"
+//                date.setTextColor(resources.getColor(R.color.comet))
+//                date.text = "Setting Mood"
+//
+//
+//
+//                if(seeker.progress == 50)
+//                {
+//                    seeker.progress = 51
+//                }
 
 
+                lifecycleScope.launch(Dispatchers.Default) {
 
-                if(seeker.progress == 50)
-                {
-                    seeker.progress = 51
-                }
+                    withContext(Dispatchers.Main) {
 
-                Handler(Looper.getMainLooper()).postDelayed(
-                    {
+                        date.setTextColor(resources.getColor(R.color.comet))
+                        date.text = "Setting Mood"
+
+
+                        if(seeker.progress == 50)
+                        {
+                            seeker.progress = 51
+                        }
+
+                        delay(700)
+
                         date.text = "Enter Date"
                         date.setTextColor(resources.getColor(R.color.lilac))
 
                         seeker.progress = 50
-
-                    },
-                    1000 // value in milliseconds
-                )
+                    }
+                }
 
 
             }
@@ -218,6 +221,54 @@ class Hand : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun displayFormattedDate(timestamp: Long)
     {
         view?.findViewById<TextView>(R.id.tvDate)?.text = formatter.format(timestamp)
+    }
+
+    fun sad_happy(progress: Int, seeker: SeekBar, emoji: ImageView)
+    {
+        if(progress == 12)
+        {
+            emoji.setImageResource(R.drawable.sad3)
+            seeker.performHapticFeedback(4)
+            select = 1
+
+
+        }
+        else if(progress == 24)
+        {
+            emoji.setImageResource(R.drawable.sad2)
+            seeker.performHapticFeedback(4)
+            select = 2
+        }
+        else if(progress == 36)
+        {
+            emoji.setImageResource(R.drawable.sad)
+            seeker.performHapticFeedback(4)
+            select = 3
+        }
+        else if (progress == 50)
+        {
+            emoji.setImageResource(R.drawable.mid)
+            seeker.performHapticFeedback(4)
+            select = 4
+        }
+        else if(progress == 62)
+        {
+            emoji.setImageResource(R.drawable.smile)
+            seeker.performHapticFeedback(4)
+            select = 5
+        }
+        else if(progress == 76)
+        {
+            emoji.setImageResource(R.drawable.smile2)
+            seeker.performHapticFeedback(4)
+            select = 6
+        }
+        else if(progress == 88)
+        {
+            emoji.setImageResource(R.drawable.smile3)
+            seeker.performHapticFeedback(4)
+            select = 7
+        }
     }
 
 

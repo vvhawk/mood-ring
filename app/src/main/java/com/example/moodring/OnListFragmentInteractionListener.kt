@@ -7,7 +7,7 @@ package com.example.moodring
  * In this app, it's implemented by [NowPlayingMoviesFragment]
  */
 interface OnListFragmentInteractionListener {
-    fun onItemClick(item: JourneyTest)
+    fun onItemClick(item: JourneyEntry)
 }
 
 

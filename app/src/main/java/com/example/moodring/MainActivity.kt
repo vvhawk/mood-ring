@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.nio.channels.SelectionKey
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +32,12 @@ class MainActivity : AppCompatActivity()
         val bottom_navigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         replaceFragment(handFragment)
+
+
+        lifecycleScope.launch(Dispatchers.IO){
+            //(application as MoodRingApplication).db.journeyDao().insertEntry(JourneyEntry(6,"date 6"))
+            (application as MoodRingApplication).db.journeyDao().deleteAll()
+        }
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {

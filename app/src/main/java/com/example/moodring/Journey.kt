@@ -6,8 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.ContentLoadingProgressBar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,25 +48,87 @@ class Journey : Fragment(), OnListFragmentInteractionListener {
 
 
 
-        //val entries = Hand().tracker
-        val entries = arrayListOf<JourneyTest>()
 
-        entries.add(JourneyTest(1, "date 1"))
-        entries.add(JourneyTest(2, "date 2"))
-        entries.add(JourneyTest(3, "date 3"))
-        entries.add(JourneyTest(4, "date 4"))
-        entries.add(JourneyTest(5, "date 5"))
-        entries.add(JourneyTest(6, "date 6"))
-        entries.add(JourneyTest(7, "date 7"))
 
+        val entries = mutableListOf<JourneyEntry>()
 
         val progressBar = view.findViewById<View>(R.id.progress) as ContentLoadingProgressBar
         val recyclerView = view.findViewById<View>(R.id.list) as RecyclerView
         val context = view.context
+
+
+
+        lifecycleScope.launch {
+            (activity?.applicationContext as MoodRingApplication).db.journeyDao().getAll().collect(){ databaseList ->
+                entries.clear()
+                databaseList.map { mappedList ->
+                    entries.addAll(listOf(mappedList))
+                    recyclerView.adapter?.notifyDataSetChanged()
+
+                }
+
+            }
+        }
+//
+//        entries.add(JourneyTest(1, "date 1"))
+//        entries.add(JourneyTest(2, "date 2"))
+//        entries.add(JourneyTest(3, "date 3"))
+//        entries.add(JourneyTest(4, "date 4"))
+//        entries.add(JourneyTest(5, "date 5"))
+//        entries.add(JourneyTest(6, "date 6"))
+//        entries.add(JourneyTest(7, "date 7"))
+
+//        lifecycleScope.launch(Dispatchers.IO){
+//            (activity?.applicationContext as MoodRingApplication).db.journeyDao().insertEntry(JourneyEntry(6,"date 6"))
+//        }
+
+
         recyclerView.layoutManager = GridLayoutManager(context, 1)
         //updateAdapter(progressBar, recyclerView)
-        recyclerView.adapter = JourneyRecyclerViewAdapter(entries, this@Journey)
+        val adapter = JourneyRecyclerViewAdapter(entries, this@Journey)
+        recyclerView.adapter = adapter
+        //recyclerView.adapter = JourneyRecyclerViewAdapter(entries, this@Journey)
         progressBar.hide()
+
+
+
+        val swipeGesture = object : Swiper(getContext()!!){
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                val position = viewHolder.absoluteAdapterPosition
+
+                when(direction)
+                {
+
+                    ItemTouchHelper.LEFT -> {
+
+                        lifecycleScope.launch(Dispatchers.IO){
+                            (activity?.applicationContext as MoodRingApplication).db.journeyDao().deleteEntry(adapter.getItem(position))
+
+                            withContext(Dispatchers.Main) {
+                                adapter.deleteEntry(position)
+                            }
+
+                        }
+
+
+                        //adapter.deleteEntry(position)
+
+                    }
+
+                }
+                //super.onSwiped(viewHolder, direction)
+
+            }
+
+        }
+
+        val touchHelper = ItemTouchHelper(swipeGesture)
+        touchHelper.attachToRecyclerView(recyclerView)
+
+
+
         return view
 
     }
@@ -84,7 +153,7 @@ class Journey : Fragment(), OnListFragmentInteractionListener {
             }
     }
 
-    override fun onItemClick(item: JourneyTest) {
+    override fun onItemClick(item: JourneyEntry) {
 
         return
     }

@@ -26,7 +26,7 @@ abstract class JourneyDatabase: RoomDatabase()
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
-                JourneyDatabase::class.java, "Articles-db"
+                JourneyDatabase::class.java, "Journey-db"
             ).build()
     }
 }
