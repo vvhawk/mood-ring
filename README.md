@@ -6,13 +6,13 @@ Submitted by: **Vasanth Banumurthy**
 
 Notes: Currently, the app is geared toward tracking happiness. Once the core functionality is ironed out, I plan on adding more mood paradigms. 
 
-SAD😭 <-> HAPPY😁 
-ANGER😡 <-> PASSION😍 
-STRESSED😰 <-> RELAXED😌
-EMBARESSED😳 <-> COOL😎 
-SERIOUS😧 <-> AMUSED😂 
-SICK🤮 <-> HEALTHY😇
-TIRED😴 <-> LIVELY🥳  
+SAD😭 <-> HAPPY😁  
+ANGER😡 <-> PASSION😍  
+STRESSED😰 <-> RELAXED😌  
+EMBARESSED😳 <-> COOL😎  
+SERIOUS😧 <-> AMUSED😂  
+SICK🤮 <-> HEALTHY😇  
+TIRED😴 <-> LIVELY🥳   
 
 Time spent: **4** hours spent in total.
 
@@ -31,7 +31,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 - [X] **Swipe to Delete entry from database/recyclerview + w/ animation
-- [X] Fixed issues from last week
+- [X] Fixed issues from last week (Had already implemented fragments, but has issues with room and recyclerview)
 
 ## Old Features
 
@@ -70,7 +70,7 @@ This showcases dynamic UI and error checks as well as a semi-functional demo of 
 Note: Database implementation incomplete 
 
 
-GIF created with ...  [EZGif]()
+GIF created with ...  [EZGif](https://ezgif.com/video-to-gif)
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
@@ -78,11 +78,7 @@ GIF created with ...  [EZGif]()
 
 ## Notes
 
-Project Notes
-I have an idea in my head about how this app can be improved, but I having issues with core functionality such inserting to databases and using that as a source for the RecyclerView. Anything I tried would result in the program becoming unresponsive. Hence, the program is submitted in the most stable state. 
-
-Class Notes
-I felt that the lab tutorial was rather disconnected from the project. While it discussed SQLlite and databases, it did so in context to APIs. Moreover, I feel like the past 3 labs have been a lot of copy/paste. These tutorials also made use of stuff we never covered such as Coroutines and Fragments.
+Looking to expand app in near future
 
 ## License
 
