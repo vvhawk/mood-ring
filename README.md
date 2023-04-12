@@ -48,15 +48,12 @@ Now lets delete the entries!
 <img src="./extras/delete.gif" width="200" height="400"/>
 
 
-GIF created with ...  [EZGif](https://ezgif.com/video-to-gif)
+GIFs created with ...  [EZGif](https://ezgif.com/video-to-gif)
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
 [peek](https://github.com/phw/peek) for Linux. -->
 
-## Notes
-
-Looking to expand app in near future
 
 ## License
 
