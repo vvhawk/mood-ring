@@ -5,7 +5,8 @@
 
 <img src="./extras/definition.png" width="400" height="200"/> 
 
-  
+*Note*:  
+This app is still a work in progress. It initially started as a project for [CodePath's](https://www.codepath.org/) [Android Development Pathway](https://www.codepath.org/courses/android-development).
 
 <img src="./extras/intro.gif" width="200" height="400"/> 
 
